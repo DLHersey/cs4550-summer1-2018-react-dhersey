@@ -15,7 +15,8 @@ export default class CourseRow extends React.Component {
            		<td>
 	            	<button className="btn btn-primary" type="button">Edit</button>
 	            	<button className="btn btn-danger" type="button" 
-	            		onClick={(e) => this.props.deleteCourse(this.props.course.key)}>Delete</button>
+	            		onClick={() =>
+                        {this.props.delete(this.props.course.id)}}>Delete</button>
 		        </td>
            	</tr>
        )

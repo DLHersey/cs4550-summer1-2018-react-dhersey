@@ -27,21 +27,6 @@ export default class CourseList
       		});
   	}
 
-  	renderCourseRows() {
-	    let courses = null;
-
-	    console.log("render coruse rows")
-	    console.log(this.state)
-	    if(this.state) {
-	      	courses = this.state.courses.map(
-	        	function (course) {
-	          		return <CourseRow key={course.id} course={course}/>
-	        }
-	      )
-	    }
-	    return (courses)
-	}
-
 	titleChanged(event) {
 	    this.setState({
 	      course: { title: event.target.value }
@@ -57,10 +42,24 @@ export default class CourseList
 	}
 
 	deleteCourse(courseId) {
-		console.log('deleteCourse');
 		this.courseService
-       		.deleteCourse(courseId);
+       		.deleteCourse(courseId)
+			.then(() => {this.findAllCourses();});
 	}
+
+    renderCourseRows() {
+        let courses = null;
+
+        console.log("render coruse rows")
+        console.log(this.state)
+        if(this.state) {
+            courses = this.state.courses.map((course) => {
+                    return <CourseRow key={course.id} course={course} delete={this.deleteCourse}/>
+                }
+            )
+        }
+        return (courses)
+    }
 
 
     render() {
