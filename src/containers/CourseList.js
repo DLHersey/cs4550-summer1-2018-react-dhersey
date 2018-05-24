@@ -34,8 +34,6 @@ export default class CourseList
 	}
 
 	createCourse() {
-		console.log('createCourse');
-
 	    this.courseService
 	       	.createCourse(this.state.course)
 	       	.then(() => { this.findAllCourses(); });
