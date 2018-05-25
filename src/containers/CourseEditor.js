@@ -1,6 +1,5 @@
 import React from 'react';
 import ModuleList from './ModuleList';
-import LessonTabs from './LessonTabs';
 
 export default class CourseEditor
 	extends React.Component {
@@ -15,7 +14,7 @@ export default class CourseEditor
         (this.props.match.params.courseId);
     }
 
-    selectCourse(courseId) {
+    selectCourse(courseId) {;
         this.setState({courseId: courseId});
     }
 
@@ -27,7 +26,7 @@ export default class CourseEditor
 
     render() {
         return (
-            <div>
+            <div className="bg-light">
                 <h2>Editing course: {this.state.courseId}</h2>
                 <div className="row">
                     <div className="col-4">

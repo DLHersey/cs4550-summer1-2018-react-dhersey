@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import ModuleListItem from '../components/ModuleListItem';
 import ModuleService from "../services/ModuleServiceClient";
 import ModuleEditor from '../containers/ModuleEditor';
@@ -33,7 +33,7 @@ extends React.Component {
     }
 
     componentWillReceiveProps(newProps){
-        this.setCourseId(JSON.stringify(newProps.courseId));
+        this.setCourseId(newProps.courseId);
         this.findAllModulesForCourse(newProps.courseId);
     }
 
@@ -53,8 +53,7 @@ extends React.Component {
     createModule() {
         this.moduleService
             .createModule(this.state.module)
-            .then()
-                                                                                                                                                                                                                                        .then(() => { this.findAllModulesForCourse(this.state.courseId); });
+            .then(() => { this.findAllModulesForCourse(this.state.courseId); })                                                                                                                                                                              .then(() => { this.findAllModulesForCourse(this.state.courseId); });
     }
 
     titleChanged(event) {
@@ -69,32 +68,33 @@ extends React.Component {
 
 
     renderModuleList() {
-        /*delete={this.deleteModule}*/
-        let modules = this.state.modules.map(function(module) {
-            return <ModuleListItem module={module} key={module.id}/>
+        let modules = this.state.modules.map((module) => {
+            return <ModuleListItem module={module} key={module.id} courseId={this.state.courseId}/>
         });
         return modules;
     }
 
-
     render() { return (
         <Router>
             <div className="row">
-                <div className="col-4">
-                    <input onChange={this.titleChanged}
-                           value={this.state.module.title}
-                           placeholder="title"
-                           className="form-control"/>
-                    <button onClick={this.createModule} className="btn btn-primary">
-                        <i className="fa fa-plus"></i>
-                    </button>
+                <div className="col-4 pannel">
+                    <div className="form-control">
+                        <input onChange={this.titleChanged}
+                               value={this.state.module.title}
+                               placeholder="New Module"
+                               className="form-control form-inline"/>
+                        <button onClick={this.createModule} className="btn btn-primary form-inline">
+                            <i className="fa fa-plus"></i>
+                        </button>
+                    </div>
                     <br/>
                     <ul className="list-group">
                         {this.renderModuleList()}
                     </ul>
                 </div>
                 <div className="col-8">
-                    <ModuleEditor/>
+                    <Route path="/course/:courseId/module/:moduleId"
+                           component={ModuleEditor}/>
                 </div>
             </div>
         </Router>
