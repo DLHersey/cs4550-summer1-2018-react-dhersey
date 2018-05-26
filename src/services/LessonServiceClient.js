@@ -1,6 +1,6 @@
 let _singleton = Symbol();
-const MODULE_API_URL = 'http://localhost:8080/api/module';
-const LESSON_API_URL = 'http://localhost:8080/api/lesson';
+const MODULE_API_URL = 'https://arcane-oasis-72546.herokuapp.com//api/module';
+const LESSON_API_URL = 'https://arcane-oasis-72546.herokuapp.com//api/lesson';
 export default class LessonService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
