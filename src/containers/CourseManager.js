@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
@@ -20,7 +22,7 @@ extends Component {
                                 <a className="nav-link" href="#">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Course List</a>
+                                <Link className="nav-link" to={`/courselist`}>Course List</Link>
                             </li>
                         </ul>
                     </div>
@@ -29,6 +31,7 @@ extends Component {
                     </span>
                 </nav>
                 <div className="container-fluid">
+                    <Switch>
                     <Route path="/courselist"
                            component={CourseList}>
                     </Route>
@@ -36,6 +39,7 @@ extends Component {
                     <Route path="/course/:courseId"
                            component={CourseEditor}>
                     </Route>
+                    </Switch>
                 </div>
             </div>
         </Router>

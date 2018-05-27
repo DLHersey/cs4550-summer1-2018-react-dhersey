@@ -1,5 +1,4 @@
 let _singleton = Symbol();
-const MODULE_API_URL = 'http://localhost:8080/api/module';
 const LESSON_API_URL = 'http://localhost:8080/api/lesson';
 export default class LessonService {
     constructor(singletonToken) {

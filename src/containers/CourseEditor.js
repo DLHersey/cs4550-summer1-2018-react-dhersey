@@ -14,7 +14,7 @@ export default class CourseEditor
         (this.props.match.params.courseId);
     }
 
-    selectCourse(courseId) {;
+    selectCourse(courseId) {
         this.setState({courseId: courseId});
     }
 

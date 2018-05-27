@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import LessonService from "../services/LessonServiceClient";
+import LessonListItem from '../components/LessonListItem';
 
 export default class LessonTabs
     extends React.Component {
@@ -9,43 +10,22 @@ export default class LessonTabs
         super(props);
         this.lessonService = LessonService.instance;
         this.state = {
-            courseId: '',
-            moduleId: '',
-            lesson: {title: 'New Topic'},
-            lessons: [{title: 'Topic', id: 0},]
-        }
+            rLessons: []
+        };
     }
 
     setLessons(lessons) {
-        this.setState({lessons: lessons})
+        this.setState({rLessons: lessons})
     }
 
-    componentDidMount() {
-        this.setCourseId(
-            this.props.courseId);
-        this.setModuleId(
-            this.props.moduleId);
-    }
-
-    selectCourse(courseId) {
-        this.setState({courseId: courseId});
-    }
-
-    setCourseId(courseId) {
-        this.setState
-        ({courseId: courseId});
-    }
-
-    setModuleId(moduleId) {
-        this.setState
-        ({moduleId: moduleId});
-    }
-
-    createLesson() {
+    //only needs to create with placeholder name
+    /*createLesson() {
         this.lessonService
             .createLesson(this.state.lesson)
-            .then(() => {this.findAllLessonsForModule(this.state.courseId, this.state.moduleId)})
-    }
+            .then(() => {
+                this.findAllLessonsForModule(
+                    this.props.match.params.courseId, this.props.match.params.moduleId)})
+    }*/
 
     findAllLessons() {
         this.lessonService
@@ -55,25 +35,31 @@ export default class LessonTabs
 
     findAllLessonsForModule(courseId, moduleId) {
         this.lessonService
-            .findAllLessonsForModule(courseId)
-            .then((lessons) => {this.setLessons(lessons)});
+            .findAllLessonsForModule(courseId, moduleId)
+            .then((lessons) => {
+                this.setLessons(lessons)});
     }
 
     deleteLesson(lessonId) {
         this.lessonService
             .deleteLesson(lessonId)
-            .then(() => {this.findAllLessonsForModule(this.state.courseId, this.state.moduleId)})
+            .then(() => {
+                this.findAllLessonsForModule(
+                    this.props.courseId, this.props.moduleId)})
     }
 
     renderLessonTabs() {
-        let lessonTabs = this.state.lessons.map((lesson) => {
-            return <li key={lesson.id}><a data-toggle="pill" href={'#'+lesson.id}>{lesson.title}</a></li>
+        this.findAllLessonsForModule(this.props.courseId, this.props.moduleId);
+        let lessonTabs = this.state.rLessons.map((lesson) => {
+            return <LessonListItem lesson={lesson} key={lesson.id}/>
         });
         return lessonTabs;
     }
-
+/*
     renderLessonContent() {
-        let lessonContent = this.state.lessons.map((lesson) => {
+        this.findAllLessonsForModule(
+            this.props.courseId, this.props.moduleId);
+        let lessonContent = this.state.rLessons.map((lesson) => {
             return (
                 <div key={lesson.id} id={lesson.id} className="tab-pane fade">
                     <h3>{lesson.title}</h3>
@@ -84,7 +70,7 @@ export default class LessonTabs
         });
         return lessonContent;
     }
-
+*/
     render() {
         return(
             <div>
@@ -99,7 +85,7 @@ export default class LessonTabs
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua.</p>
                     </div>
-                    {this.renderLessonContent()}
+
                 </div>
             </div>
         )}

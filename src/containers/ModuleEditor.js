@@ -8,14 +8,14 @@ export default class ModuleEditor
 
     constructor(props) {
         super(props);
-        this.selectCourse = this.selectCourse.bind(this);
-        this.setCourseId = this.setCourseId.bind(this);
-        this.setModuleId = this.setModuleId.bind(this);
+        //this.selectCourse = this.selectCourse.bind(this);
+        //this.setCourseId = this.setCourseId.bind(this);
+        //this.setModuleId = this.setModuleId.bind(this);
         this.state = {
             courseId: '', moduleId: ''
         };
     }
-
+/*
     componentDidMount() {
         this.setCourseId(
             this.props.match.params.courseId);
@@ -37,12 +37,12 @@ export default class ModuleEditor
         ({moduleId: moduleId});
     }
 
-
+*/
     render() { return(
         <div className="container-fluid bg-light">
-            <h2>Editing Module: {this.state.courseId}</h2>
+            <h2>Editing Module: {this.props.match.params.moduleId}</h2>
             <div className="row">
-                <LessonTabs courseId={this.state.courseId} moduleId={this.state.moduleId}/>
+                <LessonTabs courseId={this.props.match.params.courseId} moduleId={this.props.match.params.moduleId}/>
             </div>
         </div>
     );}}
