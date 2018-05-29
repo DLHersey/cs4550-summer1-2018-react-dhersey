@@ -1,43 +1,52 @@
-import React from 'react'
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import * as actions from "../actions"
+import WidgetContainer from '../components/Widget'
 
-import { createStore } from 'redux'
-import { Provider, connect } from 'react-redux'
+class WidgetList extends Component {
+    constructor(props) {
+        super(props)
+        this.props.findAllWidgets()
+    }
+    render() {
+        return(
+            <div>
+                <h1>Widget List {this.props.widgets.length}</h1>
 
-const SomeComponent = ({dispatch}) => (
-    <button onClick={e => {
-        dispatch({type: 'some action'})
-    }}>Some Button</button>
-)
+                <button hidden={this.props.previewMode} onClick={this.props.save}>
+                    Save
+                </button>
+                <button onClick={this.props.preview}>
+                    Preview
+                </button>
 
-const SomeContainer =
-    connect()(SomeComponent)
-
-
-
-const someReducer = (state =
-                         {someDefaultProperty: 'some state'}, action) => {
-    switch (action.type) {
-        case 'some action':
-            alert('Some action was dispatch')
-            return {someStateAttribute:
-                    'some new state'}
-        default: return state
+                <ul>
+                    {this.props.widgets.map(widget => (
+                        <WidgetContainer widget={widget}
+                                         preview={this.props.previewMode}
+                                         key={widget.id}/>
+                    ))}
+                </ul>
+                <button onClick={this.props.addWidget}>Add widget
+                </button>
+            </div>
+        )
     }
 }
 
+const stateToPropertiesMapper = (state) => ({
+    widgets: state.widgets,
+    previewMode: state.preview
+})
+const dispatcherToPropsMapper
+    = dispatch => ({
+    findAllWidgets: () => actions.findAllWidgets(dispatch),
+    addWidget: () => actions.addWidget(dispatch),
+    save: () => actions.save(dispatch),
+    preview: () => actions.preview(dispatch)
+})
+const App = connect(
+    stateToPropertiesMapper,
+    dispatcherToPropsMapper)(WidgetList)
 
-const someStore =
-    createStore(someReducer)
-
-const SomeApp = () => (
-    <Provider store={someStore}>
-        <SomeContainer />
-    </Provider>
-)
-
-
-ReactDOM.render(
-    <SomeApp/>,
-    document.getElementById('root')
-);
+export default App;
