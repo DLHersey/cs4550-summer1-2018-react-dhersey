@@ -1,5 +1,6 @@
 let _singleton = Symbol();
-const LESSON_API_URL = 'http://localhost:8080/api/widget';
+const WIDGET_API_URL = 'http://localhost:8080/api/widget';
+
 export default class WidgetService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
@@ -15,6 +16,12 @@ export default class WidgetService {
     //CREATE
 
     //READ
+    findAllWidgets() {
+        return fetch(WIDGET_API_URL)
+            .then(function (response) {
+            return response.json();
+        });
+    }
 
     //UPDATE
 

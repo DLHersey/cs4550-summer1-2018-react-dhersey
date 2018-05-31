@@ -20,7 +20,7 @@ class WidgetList extends Component {
                     Preview
                 </button>
 
-                <ul>
+                <ul type="none">
                     {this.props.widgets.map(widget => (
                         <WidgetContainer widget={widget}
                                          preview={this.props.previewMode}

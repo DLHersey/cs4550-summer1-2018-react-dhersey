@@ -30,6 +30,7 @@ export default class ModuleListItem
                 {this.props.module.title}
             </Link>
             <button className="btn btn-danger float-right"
+                    onClick={() => {this.props.delete(this.props.module.id)}}
                     type="button">
                 <i className="fa fa-trash" ></i>
             </button>

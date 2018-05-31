@@ -10,7 +10,8 @@ extends React.Component {
         super(props);
         this.moduleService = ModuleService.instance;
         this.state = {courseId: '',
-                      module: { title: '' },
+                      module: { courseId: '',
+                                title: '' },
                       modules: [{title: 'Module 1', id: 123},]};
 
         this.createModule = this.createModule.bind(this);
@@ -37,7 +38,6 @@ extends React.Component {
         this.findAllModulesForCourse(newProps.courseId);
     }
 
-
     findAllModules() {
         this.moduleService
             .findAllModules()
@@ -51,6 +51,7 @@ extends React.Component {
     }
 
     createModule() {
+        this.state.module.courseId = this.state.courseId;
         this.moduleService
             .createModule(this.state.module)
             .then(() => { this.findAllModulesForCourse(this.state.courseId); })                                                                                                                                                                              .then(() => { this.findAllModulesForCourse(this.state.courseId); });
@@ -64,12 +65,20 @@ extends React.Component {
 
     deleteModule(moduleId) {
         console.log('delete this module?: '+ moduleId);
+        if(window.confirm("Delete this module?")) {
+            this.moduleService
+                .deleteModule(moduleId)
+                .then(() => { this.findAllModulesForCourse(this.state.courseId) })
+        } else {
+            console.log('user cancelled delete.')
+        }
+
     }
 
 
     renderModuleList() {
         let modules = this.state.modules.map((module) => {
-            return <ModuleListItem module={module} key={module.id} courseId={this.state.courseId}/>
+            return <ModuleListItem module={module} key={module.id} courseId={this.state.courseId} delete={this.deleteModule}/>
         });
         return modules;
     }

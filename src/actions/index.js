@@ -1,5 +1,6 @@
 import * as constants from "../constants/index"
 
+//HEADING
 export const headingTextChanged = (dispatch, widgetId, newText) => (
     dispatch({
         type: constants.HEADING_TEXT_CHANGED,
@@ -12,6 +13,53 @@ export const headingSizeChanged = (dispatch, widgetId, newSize) => (
         id: widgetId,
         size: newSize})
 )
+
+//PARAGRAPH
+export const paragraphTextChanged = (dispatch, widgetId, newText) => (
+    dispatch({
+        type: constants.PARAGRAPH_TEXT_CHANGED,
+        id: widgetId,
+        text: newText})
+)
+
+//IMAGE
+export const imageSrcChanged = (dispatch, widgetId, newSrc) => (
+    dispatch({
+        type: constants.IMAGE_SRC_CHANGED,
+        id: widgetId,
+        src: newSrc})
+)
+
+//LIST
+export const listItemsChanged = (dispatch, widgetId, newText) => (
+    dispatch({
+        type: constants.LIST_ITEMS_CHANGED,
+        id: widgetId,
+        listItems: newText})
+)
+export const listTypeChanged = (dispatch, widgetId, newType) => (
+    dispatch({
+        type: constants.LIST_TYPE_CHANGED,
+        id: widgetId,
+        listType: newType})
+)
+
+//LINK
+export const linkTextChanged = (dispatch, widgetId, newText) => (
+    dispatch({
+        type: constants.LINK_TEXT_CHANGED,
+        id: widgetId,
+        text: newText})
+)
+export const linkHrefChanged = (dispatch, widgetId, newHref) => (
+    dispatch({
+        type: constants.LINK_HREF_CHANGED,
+        id: widgetId,
+        href: newHref})
+)
+
+
+
 
 export const findAllWidgets = dispatch => {
     fetch('http://localhost:8080/api/widget')

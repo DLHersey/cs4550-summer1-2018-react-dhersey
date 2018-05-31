@@ -30,6 +30,70 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                 })
             }
 
+        case constants.PARAGRAPH_TEXT_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.text = action.text
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.IMAGE_SRC_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.src = action.src
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.LIST_ITEMS_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.listItems = action.listItems
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.LIST_TYPE_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.listType = action.listType
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.LINK_TEXT_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.text = action.text
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.LINK_HREF_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.href = action.href
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+
+
+
+
         case constants.SELECT_WIDGET_TYPE:
             console.log(action);
             let newState = {
@@ -43,9 +107,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             return JSON.parse(JSON.stringify(newState))
 
         case constants.SAVE:
-
-
-            fetch('http://localhost:8080/api/widget/save', {
+                fetch('http://localhost:8080/api/widget/save', {
                 method: 'post',
                 body: JSON.stringify(state.widgets),
                 headers: {
@@ -54,16 +116,19 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
 
 
             return state
+
         case constants.FIND_ALL_WIDGETS:
             newState = Object.assign({}, state)
             newState.widgets = action.widgets
             return newState
+
         case constants.DELETE_WIDGET:
             return {
                 widgets: state.widgets.filter(widget => (
                     widget.id !== action.id
                 ))
             }
+
         case constants.ADD_WIDGET:
             return {
                 widgets: [

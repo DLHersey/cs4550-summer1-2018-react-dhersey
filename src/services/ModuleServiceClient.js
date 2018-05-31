@@ -14,7 +14,7 @@ export default class ModuleService {
 
     //CREATE
     createModule(module) {
-        return fetch(MODULE_API_URL, {
+        return fetch(COURSE_API_URL+'/'+ module.courseId +'/module', {
             body: JSON.stringify(module),
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export default class ModuleService {
             });
     }
     findModuleById(moduleId) {
-        return fetch(MODULE_API_URL+'/'+{moduleId})
+        return fetch(MODULE_API_URL+'/'+moduleId)
             .then(function (response) {
                 return response.json();
             });
@@ -52,7 +52,7 @@ export default class ModuleService {
 
     //DELETE
     deleteModule(moduleId) {
-        console.log('delete' + moduleId);
+        console.log('delete ' + moduleId);
         return fetch(MODULE_API_URL + '/' + moduleId, {
             method: 'delete'
         }).then(function(response) {
