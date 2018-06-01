@@ -86,7 +86,7 @@ extends React.Component {
     render() { return (
         <Router>
             <div className="row">
-                <div className="col-4 pannel">
+                <div className="col-2">
                     <div className="form-control">
                         <input onChange={this.titleChanged}
                                value={this.state.module.title}

@@ -42,7 +42,9 @@ export default class ModuleEditor
         <div className="container-fluid bg-light">
             <h2>Editing Module: {this.props.match.params.moduleId}</h2>
             <div className="row">
-                <LessonTabs key={this.props.location.pathname} courseId={this.props.match.params.courseId} moduleId={this.props.match.params.moduleId}/>
+                <div className="col-lg">
+                    <LessonTabs key={this.props.location.pathname} courseId={this.props.match.params.courseId} moduleId={this.props.match.params.moduleId}/>
+                </div>
             </div>
         </div>
     );}}

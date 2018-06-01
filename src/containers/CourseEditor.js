@@ -29,10 +29,8 @@ export default class CourseEditor
             <div className="bg-light">
                 <h2>Editing course: {this.state.courseId}</h2>
                 <div className="row">
-                    <div className="col-4">
+                    <div className="col">
                         <ModuleList courseId={this.state.courseId}/>
-                    </div>
-                    <div className="col-8">
                     </div>
                 </div>
             </div>

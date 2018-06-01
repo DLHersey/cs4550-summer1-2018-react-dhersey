@@ -61,45 +61,25 @@ export default class LessonTabs
 
     renderLessonTabs() {
         let lessonTabs = this.state.rLessons.map((lesson) => {
-            return <a data-toggle="pill" href={'#'+lesson.id} key={lesson.id}>{lesson.title}</a>
-        });
-        return lessonTabs;
-    }
-
-    renderLessonContent() {
-        let lessonContent = this.state.rLessons.map((lesson) => {
             return (
-                <div key={lesson.id} id={lesson.id} className="tab-pane fade">
-                    <h3>{lesson.title}</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                </div>
-            )
-        });
-        return lessonContent;
+                <li key={lesson.id}>
+                    <a data-toggle="pill" href={'#'+lesson.id}>{lesson.title}</a>
+                </li>
+        )});
+        return lessonTabs;
     }
 
     render() {
 
         let store = createStore(widgetReducer)
         return(
-            <div className={"container"}>
+            <div className="container">
                 <ul className="nav nav-pills">
-                    <li className="active"><a data-toggle="pill" href="#intro">Home</a></li>
                     {this.renderLessonTabs()}
                 </ul>
-
-                <div className="tab-content">
-                    <div id="intro" className="tab-pane fade in active">
-                        <h3>Intro</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua.</p>
-                    </div>
-                    <br/>
-
-                </div>
+                <br/>
                 <Provider store={store}>
-                    <App />
+                    <App lessonId={this.props.lessonId}/>
                 </Provider>
             </div>
         )}

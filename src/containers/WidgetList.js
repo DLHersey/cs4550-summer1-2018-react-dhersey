@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions"
 import WidgetContainer from '../components/Widget'
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 class WidgetList extends Component {
     constructor(props) {
@@ -10,24 +11,27 @@ class WidgetList extends Component {
     }
     render() {
         return(
-            <div>
-                <h1>Widget List {this.props.widgets.length}</h1>
-
-                <button hidden={this.props.previewMode} onClick={this.props.save}>
+            <div className="container-fluid">
+                <button className="float-right mb-4 btn btn-info"
+                        hidden={this.props.previewMode}
+                        onClick={this.props.save}>
                     Save
                 </button>
-                <button onClick={this.props.preview}>
+                <button className="mb-4 btn btn-outline-secondary"
+                        onClick={this.props.preview}>
                     Preview
                 </button>
 
-                <ul type="none">
+                <ul className="col"
+                    type="none">
                     {this.props.widgets.map(widget => (
                         <WidgetContainer widget={widget}
                                          preview={this.props.previewMode}
                                          key={widget.id}/>
                     ))}
                 </ul>
-                <button onClick={this.props.addWidget}>Add widget
+                <button className="btn btn-block btn-success"
+                        onClick={this.props.addWidget}>Add widget
                 </button>
             </div>
         )

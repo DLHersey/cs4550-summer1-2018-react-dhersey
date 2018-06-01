@@ -39,12 +39,14 @@ const Paragraph = ({widget, preview, paragraphTextChanged}) => {
                 <h2>Paragraph</h2>
                 <textarea onChange={() => paragraphTextChanged(widget.id, textElem.value)}
                           value={widget.text}
-                          ref={node => textElem = node}/>
+                          ref={node => textElem = node}
+                          placeholder="Paragraph text"/>
                 <hr/>
                 <h3>Preview</h3>
             </div>
             <div>
                 {widget.text}
+                {widget.name}
             </div>
         </div>
     )
@@ -59,12 +61,12 @@ const Image = ({widget, preview, imageSrcChanged}) => {
                 <input onChange={() => imageSrcChanged(widget.id, inputElem.value)}
                        value={widget.src}
                        ref={node => inputElem = node}
-                placeholder="image url"/>
+                placeholder="Image URL"/>
                 <hr/>
                 <h3>Preview</h3>
             </div>
             <div>
-                {widget.src}
+                <img src={widget.src}/>
             </div>
         </div>
     )
@@ -79,7 +81,8 @@ const List = ({widget, preview, listItemsChanged, listTypeChanged}) => {
                 <h2>List</h2>
                 <textarea onChange={() => listItemsChanged(widget.id, textElem.value)}
                           value={widget.listItems}
-                          ref={node => textElem = node}/>
+                          ref={node => textElem = node}
+                          placeholder="Enter one list item per line"/>
                 <select onChange={() => listTypeChanged(widget.id, selectElem.value)}
                         value={widget.listType}
                         ref={node => selectElem = node}>
@@ -90,11 +93,20 @@ const List = ({widget, preview, listItemsChanged, listTypeChanged}) => {
                 <h3>Preview</h3>
             </div>
             <div>
-                {widget.listType == 'ordered' && <h1>{widget.text}</h1>}
-                {widget.listType == 'unordered' && <h2>{widget.text}</h2>}
+                {widget.listType == 'ordered' && <ol><ParsedListItems widget={widget}
+                                                                      key={widget.id}/></ol>}
+                {widget.listType == 'unordered' && <ul><ParsedListItems widget={widget}
+                                                                        key={widget.id}/></ul>}
             </div>
         </div>
     )
+}
+
+const ParsedListItems = ({widget}) => {
+    let items = widget.listItems.split('\n');
+    return (items.map(item => (
+        <li>{item}</li>
+    )))
 }
 
 const Link = ({widget, preview, linkTextChanged, linkHrefChanged}) => {
@@ -163,7 +175,8 @@ const Widget = ({widget, preview, dispatch}) => {
 const findAllWidgets = dispatch => {
     fetch('http://localhost:8080/api/widget')
         .then(response => (response.json()))
-        .then(widgets => dispatch({type: 'FIND_ALL_WIDGETS', widgets: widgets}))
+        .then(widgets =>
+            dispatch({type: 'FIND_ALL_WIDGETS', widgets: widgets}))
 };
 
 
