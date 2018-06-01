@@ -21,6 +21,7 @@ const Heading = ({widget, preview, headingTextChanged, headingSizeChanged}) => {
                     <option value="2">Heading 2</option>
                     <option value="3">Heading 3</option>
                 </select>
+                <hr/>
                 <h3>Preview</h3>
             </div>
             {widget.size == 1 && <h1>{widget.text}</h1>}
@@ -40,6 +41,7 @@ const Paragraph = ({widget, preview, paragraphTextChanged}) => {
                           value={widget.text}
                           ref={node => textElem = node}/>
                 <hr/>
+                <h3>Preview</h3>
             </div>
             <div>
                 {widget.text}
@@ -58,6 +60,8 @@ const Image = ({widget, preview, imageSrcChanged}) => {
                        value={widget.src}
                        ref={node => inputElem = node}
                 placeholder="image url"/>
+                <hr/>
+                <h3>Preview</h3>
             </div>
             <div>
                 {widget.src}
@@ -82,6 +86,8 @@ const List = ({widget, preview, listItemsChanged, listTypeChanged}) => {
                     <option value="ordered">Ordered</option>
                     <option value="unordered">Unordered</option>
                 </select>
+                <hr/>
+                <h3>Preview</h3>
             </div>
             <div>
                 {widget.listType == 'ordered' && <h1>{widget.text}</h1>}
@@ -98,17 +104,18 @@ const Link = ({widget, preview, linkTextChanged, linkHrefChanged}) => {
         <div>
             <div hidden={preview}>
                 <h2>Link</h2>
-                <input type="text"
+                <input type="url"
                        placeholder="link path"
                        onChange={() => linkHrefChanged(widget.id, inputElem.value)}
                        value={widget.href}
                        ref={node => inputElem = node}/>
-                <input type="url"
+                <input type="text"
                        placeholder="link text"
-                       onChange={() => linkHrefChanged(widget.id, labelElem.value)}
+                       onChange={() => linkTextChanged(widget.id, labelElem.value)}
                        value={widget.text}
                        ref={node => labelElem = node}/>
                 <hr/>
+                <h3>Preview</h3>
             </div>
             <div>
                 <a href={'//'+widget.href}>{widget.text}</a>
